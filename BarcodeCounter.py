@@ -14,9 +14,8 @@ from pygame import mixer
 
 # アプリを終了するためのライブラリをインポート
 import sys
-# ディレクトリ操作をするためのライブラリをインポート
-import os
-
+# アプリの実行時間を測定するためにクロックライブラリをインポート
+import time
 
 """ ---------------------------------------------------------
 変数定義
@@ -81,7 +80,7 @@ def BarcodeReading():
             # 読み込んだバーコードの数が設定値に達したらアラートを出してカウンタを0に戻す
             if ReadBarcodeQty == NumberOfCount:
                 # カウント完了の効果音を再生
-                mixer.Sound('lib/alarm.wav').play()
+                mixer.Sound('./lib/alarm.wav').play()
 
                 print('\033[2K', ReadBarcodeQty, 'sheets Done !', '\033[2A')
                 ReadBarcodeQty = 0
@@ -89,7 +88,7 @@ def BarcodeReading():
                 continue
 
             # 読み込みの効果音を再生
-            mixer.music.load('lib/beep.mp3')
+            mixer.music.load('./lib/beep.mp3')
             mixer.music.play(1)
 
             # 現在の行を消す
@@ -101,17 +100,6 @@ def BarcodeReading():
 
         # 「q」がタイプされた時はアプリを終了
         elif BarcodeValue == 'q':
-
-            # 読み込んだ値をファイルに出力（追記で出力する）
-            d = '\n'.join(BarcodeValueArray)
-            with open('Data/data.txt', 'a') as f:
-                f.write(d)
-
-            # データファイルの最後に改行を追加
-            # データ出力ファイルの初期処理
-            with open('Data/data.txt', 'a') as f:
-                f.write('\n')
-
             print('\033[2K', 'Appication has quit.')
             print('\033[2K', 'Bye!')
             sys.exit()
@@ -141,10 +129,6 @@ def main():
     print('\033[2A')
     print('\033[K', '\033[A', '\033[K')
     print('\033[2A')
-
-    # データ保存用のディレクトリが存在しなければ作成
-    if not os.path.isdir('Data'):
-        os.makedirs('Data')
 
     # アプリの初期メッセージを表示
     print('\033[A', '[Bar-code Counter v0.1.0]')

@@ -107,7 +107,11 @@ def BarcodeReading():
             d = '\n'.join(BarcodeValueArray)
             with open('Data/data.txt', 'a') as f:
                 f.write(d)
+<<<<<<< HEAD
                 # データファイルの最後に改行を追加
+=======
+                # データファイルの最後に改行を追加。最終行改行が不要ならコメントアウト。
+>>>>>>> 9df6ccd7040dfc3053ebd360f908ab65b136b3e0
                 f.write('\n')
 
             print('\033[2K', 'Appication has quit.')
